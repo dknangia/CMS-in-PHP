@@ -13,7 +13,7 @@ if (mysqli_connect_error()) {
     exit;
 }
 
-$sql = "SELECT * FROM article ORDER BY title";
+$sql = "SELECT * FROM article WHERE ID = 500 ORDER BY title";
 
 $results = mysqli_query($conn, $sql);
 
