@@ -1,33 +1,37 @@
 <?php
 
-// require "includes/database.php";
+require "includes/database.php";
 
-// if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
-//     $sql = "SELECT * 
-//             FROM article 
-//             WHERE ID = {$_GET['id']} 
-//             ORDER BY title";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-//     $results = mysqli_query($conn, $sql);
 
-//     if ($results === false) {
-//         echo mysqli_error($conn);
-//     } else {
+    $sql = "INSERT INTO article (title, content, published_at)
+            (?, ?, ?, ?)";
 
-//         $article = mysqli_fetch_assoc($results);
-//     }
-// } else {
-//     $article = null;
-// }
+    $stmt = mysqli_prepare($conn, $sql);
+
+
+
+    if ($stmt === false) {
+        echo mysqli_error($conn);
+    } else {
+
+        mysqli_stmt_bind_param($stmt, "sss", $_POST['title'], $_POST['content'], $_POST['published_at']);
+
+        if (mysqli_stmt_execute($stmt)) {
+            $id = mysqli_insert_id($conn);
+            echo "Inserted record with ID : $id";
+        } else {
+            echo mysqli_stmt_error($stmt);
+        }
+    }
+}
 require "includes/header.php";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     var_dump($_POST);
 }
-
-
-
 ?>
 
 
@@ -44,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 
     <div>
-        <label for="publication">Publication date and time</label>
-        <input type="datetime" id="publishedOn" name="publishedOn" placeholder="Published date">
+        <label for="published_at">Publication date and time</label>
+        <input type="datetime" id="published_at" name="published_at" placeholder="Published date">
     </div>
     <button>Submit</button>
 </form>
