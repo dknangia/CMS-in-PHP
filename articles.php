@@ -1,6 +1,8 @@
 <?php
 
+
 require "includes/database.php";
+
 
 $sql = "SELECT * FROM article ORDER BY title";
 
