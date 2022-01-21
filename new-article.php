@@ -17,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if ($title === "") {
         $errors[] = "Title is required";
-    } 
+    }
 
     if ($content === "") {
         $errors[] = "Content is required";
-    } 
-    
+    }
+
     if (empty($errors)) {
         $conn = getDB();
         $sql = "INSERT INTO article (title, content, published_at)
@@ -33,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($stmt === false) {
             echo mysqli_error($conn);
         } else {
+
+            if (empty($published_at)) {
+                $published_at = null;
+            }
 
             mysqli_stmt_bind_param($stmt, "sss", $title, $content, $published_at);
 
