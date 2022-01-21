@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (empty($errors)) {
         $conn = getDB();
         $sql = "INSERT INTO article (title, content, published_at)
-            (?, ?, ?, ?)";
+            VALUES (?, ?, ?)";
 
         $stmt = mysqli_prepare($conn, $sql);
 
