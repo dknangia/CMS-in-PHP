@@ -11,9 +11,9 @@ $published_at = '';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $published_at = $_POST['published_at'];
+    $title = htmlspecialchars($_POST['title']);
+    $content = htmlspecialchars($_POST['content']);
+    $published_at = htmlspecialchars($_POST['published_at']);
 
     if ($title === "") {
         $errors[] = "Title is required";
