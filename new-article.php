@@ -34,11 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             if ($date_errors['warning_count'] > 0) {
                 $errors[] = "Not able to convert data";
-            }else{
+            } else {
                 $published_at = date_format($dateTime, "Y-m-d H:i:s");
             }
-         
-            
         }
     }
 
@@ -62,6 +60,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (mysqli_stmt_execute($stmt)) {
                 $id = mysqli_insert_id($conn);
                 echo "Inserted record with ID : $id";
+
+                $protocol = '';
+
+                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+                    $protocol = 'https';
+                } else {
+                    $protocol = 'http';
+                }
+
+                //Redirect the user to another page
+                header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/article.php?id=$id");
+                exit;
             } else {
                 echo mysqli_stmt_error($stmt);
             }
