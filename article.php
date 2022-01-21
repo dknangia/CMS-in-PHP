@@ -31,8 +31,8 @@ require "includes/header.php";
     <ul>
         <li>
             <article>
-                <h2><?php echo $article['title']; ?></h2>
-                <p><?php echo $article['content']; ?></p>
+                <h2><?php echo htmlspecialchars($article['title']); ?></h2>
+                <p><?php echo htmlspecialchars($article['content']); ?></p>
             </article>
         </li>
 

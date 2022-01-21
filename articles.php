@@ -27,8 +27,9 @@ if ($results === false) {
         <?php foreach ($articles as $article) : ?>
             <li>
                 <article>
-                    <h2><?php echo "<a href=\"\article.php?id={$article['id']}\">{$article['title']}</a>"; ?></h2>
-                    <p><?php echo $article['content']; ?></p>
+                    <h2><?php echo "<a href=\"\article.php?id={$article['id']}\">"
+                            . htmlspecialchars($article['title']) . "</a>"; ?></h2>
+                    <p><?php echo htmlspecialchars($article['content']); ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
