@@ -1,7 +1,8 @@
 <?php
 
 require "includes/database.php";
-$errors = [];
+require "includes/article.php"; 
+
 
 // Form variables 
 $title = '';
@@ -16,29 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $content = htmlspecialchars($_POST['content']);
     $published_at = $_POST['published_at'];
 
-    if ($title === "") {
-        $errors[] = "Title is required";
-    }
-
-    if ($content === "") {
-        $errors[] = "Content is required";
-    }
-
-    if ($published_at != '') {
-        $dateTime =  date_create_from_format('Y-m-d H:i:s', $published_at);
-        if ($dateTime  === false) {
-            $errors[] = "Provided datetime is not valid";
-        } else {
-
-            $date_errors = date_get_last_errors();
-
-            if ($date_errors['warning_count'] > 0) {
-                $errors[] = "Not able to convert data";
-            } else {
-                $published_at = date_format($dateTime, "Y-m-d H:i:s");
-            }
-        }
-    }
+    $errors = validateArticle($title, $content, $published_at);
 
     if (empty($errors)) {
         $conn = getDB();
