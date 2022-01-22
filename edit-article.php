@@ -19,10 +19,25 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         $content = $article['content'];
         $published_at = $article['published_at'];
     } else {
-       die("No article found with this id");
+        die("No article found with this id");
     }
 } else {
     $article = null;
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    $title = htmlspecialchars($_POST['title']);
+    $content = htmlspecialchars($_POST['content']);
+    $published_at = $_POST['published_at'];
+
+    $errors = validateArticle($title, $content, $published_at);
+
+    if (empty($errors)) {
+        //Update 
+    }
+
+
 }
 
 require "includes/header.php";
