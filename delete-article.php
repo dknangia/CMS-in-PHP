@@ -55,4 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 require "includes/header.php";
 ?>
+<form method="POST">
+    <p>Are you sure want to delete?</p>
+    <button>Delete</button>
+</form>
 <?php require "includes/footer.php" ?>
