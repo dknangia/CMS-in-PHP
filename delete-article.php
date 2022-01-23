@@ -8,17 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         $id = $_GET['id'];
-        $article = getArticle($conn, $id);
+        $article = getArticle($conn, $id, "id");
 
-        $title = '';
-        $content = '';
-        $published_at = '';
+        $id = -1;
 
         if ($article !== null) {
 
-            $title = $article['title'];
-            $content = $article['content'];
-            $published_at = $article['published_at'];
+            $id = $article['id'];
         } else {
             die("No article found with this id");
         }
@@ -58,9 +54,11 @@ require "includes/header.php";
 ?>
 <h2>Delete article</h2>
 <form method="POST">
-    
+
     <p>Are you sure want to delete?</p>
-    <button>Delete</button> | <a href="/article.php?id=<?php if(isset($_GET['id'])){ echo $_GET['id']; }; ?>">Cancel</a>
+    <button>Delete</button> | <a href="/article.php?id=<?php if (isset($_GET['id'])) {
+                                                            echo $_GET['id'];
+                                                        }; ?>">Cancel</a>
 
 </form>
 <?php require "includes/footer.php" ?>
