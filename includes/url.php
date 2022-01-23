@@ -5,11 +5,10 @@
  * 
  * @param string $path Path were request needs to be redirected
  * 
- * 
+ * @return void
  */
 function redirect($path){
     $protocol = '';
-
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
         $protocol = 'https';
     } else {
