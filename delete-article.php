@@ -54,9 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 require "includes/header.php";
+
 ?>
+<h2>Delete article</h2>
 <form method="POST">
+    
     <p>Are you sure want to delete?</p>
-    <button>Delete</button>
+    <button>Delete</button> | <a href="/article.php?id=<?php if(isset($_GET['id'])){ echo $_GET['id']; }; ?>">Cancel</a>
+
 </form>
 <?php require "includes/footer.php" ?>
