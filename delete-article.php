@@ -3,31 +3,31 @@
 require "includes/database.php";
 require "includes/article.php";
 require "includes/url.php";
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $conn = getDB();
 
-$conn = getDB();
+    if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
+        $id = $_GET['id'];
+        $article = getArticle($conn, $id);
 
-if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
-    $id = $_GET['id'];
-    $article = getArticle($conn, $id);
+        $title = '';
+        $content = '';
+        $published_at = '';
 
-    $title = '';
-    $content = '';
-    $published_at = '';
+        if ($article !== null) {
 
-    if ($article !== null) {
-
-        $title = $article['title'];
-        $content = $article['content'];
-        $published_at = $article['published_at'];
+            $title = $article['title'];
+            $content = $article['content'];
+            $published_at = $article['published_at'];
+        } else {
+            die("No article found with this id");
+        }
     } else {
-        die("No article found with this id");
+        $article = null;
+        die("id is not supplied, no article is found");
     }
-} else {
-    $article = null;
-    die("id is not supplied, no article is found");
-}
 
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+
 
     $id = htmlspecialchars($_GET['id']);
 
