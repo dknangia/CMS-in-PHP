@@ -1,7 +1,7 @@
 <?php
 
 require "includes/database.php";
-require "includes/article.php"; 
+require "includes/article.php";
 
 
 // Form variables 
@@ -40,17 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $id = mysqli_insert_id($conn);
                 echo "Inserted record with ID : $id";
 
-                $protocol = '';
-
-                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
-                    $protocol = 'https';
-                } else {
-                    $protocol = 'http';
-                }
-
-                //Redirect the user to another page
-                header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/article.php?id=$id");
-                exit;
+                redirect("/article.php?id=$id");
             } else {
                 echo mysqli_stmt_error($stmt);
             }
@@ -63,6 +53,6 @@ require "includes/header.php";
 
 <h1>New article</h1>
 
-<?php require "includes/article-form.php"?>
+<?php require "includes/article-form.php" ?>
 
 <?php require "includes/footer.php" ?>
