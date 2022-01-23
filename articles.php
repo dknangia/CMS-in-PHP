@@ -25,7 +25,7 @@ if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']) : ?>
 
     <p>You are logged in, <a href="/logout.php">Logout</a></p>
 <?php else : ?>
-    <p><a href="/login.php">Login</a></p>
+    <p>You are NOT logged in, <a href="/login.php">Login</a></p>
 <?php endif; ?>
 
 <a href="/new-article.php">New Article</a>
