@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             mysqli_stmt_bind_param($stmt, "sssi", $title, $content, $published_at, $id);
 
             if (mysqli_stmt_execute($stmt)) {
-               
+
                 $protocol = '';
                 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
                     $protocol = 'https';
@@ -63,8 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $protocol = 'http';
                 }
 
-                //Redirect the user to article details page
-                header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/article.php?id=$id");
+                redirect("/article.php?id=$id");
                 exit;
             } else {
                 echo mysqli_stmt_error($stmt);
