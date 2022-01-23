@@ -30,6 +30,8 @@ require "includes/header.php";
 
 
     </ul>
-    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a>
-    <?php endif; ?>
-    <?php require "includes/footer.php" ?>
+    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> | 
+        <a href="<?= "./delete-article.php?id=$id" ?>">Delete</a>
+    </p>
+<?php endif; ?>
+<?php require "includes/footer.php" ?>
