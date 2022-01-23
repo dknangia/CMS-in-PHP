@@ -30,8 +30,11 @@ require "includes/header.php";
 
 
     </ul>
-    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> | 
-        <a href="<?= "./delete-article.php?id=$id" ?>">Delete</a>
+    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> |
+    <form action="<?= "./delete-article.php?id=$id" ?>" method="POST">
+        <button>Delete</button>
+    </form>
+
     </p>
 <?php endif; ?>
 <?php require "includes/footer.php" ?>
