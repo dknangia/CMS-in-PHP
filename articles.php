@@ -2,6 +2,7 @@
 
 session_start();
 
+
 require "includes/database.php";
 
 $conn = getDB();
