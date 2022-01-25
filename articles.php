@@ -1,9 +1,8 @@
 <?php
+require "includes/database.php";
+require "includes/auth.php";
 
 session_start();
-
-
-require "includes/database.php";
 
 $conn = getDB();
 
@@ -22,14 +21,13 @@ if ($results === false) {
 <?php require "includes/header.php" ?>
 
 <?php
-if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in']) : ?>
+if (isloggedIn()) : ?>
 
     <p>You are logged in, <a href="/logout.php">Logout</a></p>
+    <p><a href="/new-article.php">New Article</a></p>
 <?php else : ?>
     <p>You are NOT logged in, <a href="/login.php">Login</a></p>
 <?php endif; ?>
-
-<a href="/new-article.php">New Article</a>
 
 <?php if (empty($articles)) : ?>
     <p>No records found</p>
