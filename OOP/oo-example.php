@@ -1,8 +1,5 @@
 <?php 
-
-class Item{
-
-}
+require "Item.php";
 
 $myObject = new Item();
 
