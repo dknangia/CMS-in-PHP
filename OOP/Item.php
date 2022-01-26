@@ -1,14 +1,20 @@
-<?php 
+<?php
 
-class Item{
-   private $name; 
+class Item
+{
+   private $name;
 
-   private $description; 
+   private $description;
 
+   public static $count = 0;
 
+   public function __construct()
+   {
+      static::$count++;
+   }
    /**
     * Get the value of name
-    */ 
+    */
    public function getName()
    {
       return $this->name;
@@ -18,7 +24,7 @@ class Item{
     * Set the value of name
     *
     * @return  self
-    */ 
+    */
    public function setName($name)
    {
       $this->name = $name;
@@ -28,7 +34,7 @@ class Item{
 
    /**
     * Get the value of description
-    */ 
+    */
    public function getDescription()
    {
       return $this->description;
@@ -38,11 +44,20 @@ class Item{
     * Set the value of description
     *
     * @return  self
-    */ 
+    */
    public function setDescription($description)
    {
       $this->description = $description;
 
       return $this;
+   }
+
+   /**
+    * Static method 
+
+    */
+   public static function readingCountValue()
+   {
+      return "Static variable value " . static::$count;
    }
 }
