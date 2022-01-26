@@ -1,21 +1,48 @@
 <?php 
 
 class Item{
-    private $name  = "Default value"; 
-    public $description  = "Default Description"; 
+   private $name; 
 
-    public function __construct(string $name = null, $description) {
-        $this->name = $name;
-        $this->description = $description;
-    }
+   private $description; 
 
-    private function sayHello()
-    {
-      echo "Hello from product named \"". $this->name . "\"";
-    }
 
-    public function getName()
-    {
-        return $this->sayHello();
-    }
+   /**
+    * Get the value of name
+    */ 
+   public function getName()
+   {
+      return $this->name;
+   }
+
+   /**
+    * Set the value of name
+    *
+    * @return  self
+    */ 
+   public function setName($name)
+   {
+      $this->name = $name;
+
+      return $this;
+   }
+
+   /**
+    * Get the value of description
+    */ 
+   public function getDescription()
+   {
+      return $this->description;
+   }
+
+   /**
+    * Set the value of description
+    *
+    * @return  self
+    */ 
+   public function setDescription($description)
+   {
+      $this->description = $description;
+
+      return $this;
+   }
 }

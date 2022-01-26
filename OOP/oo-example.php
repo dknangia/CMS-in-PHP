@@ -1,8 +1,9 @@
 <?php 
 require "Item.php";
 
-$myObject = new Item("Product X123R", "A big product for your house.");
+$myObject = new Item();
 
+$myObject->setName("Product X123"); 
 echo $myObject->getName();
 
 // var_dump($myObject);
