@@ -1,7 +1,7 @@
 <?php 
 
 class Item{
-    public $name  = "Default value"; 
+    private $name  = "Default value"; 
     public $description  = "Default Description"; 
 
     public function __construct(string $name = null, $description) {
@@ -9,13 +9,13 @@ class Item{
         $this->description = $description;
     }
 
-    public function sayHello()
+    private function sayHello()
     {
-      echo "Hello there!";
+      echo "Hello from product named \"". $this->name . "\"";
     }
 
     public function getName()
     {
-        return $this->name;
+        return $this->sayHello();
     }
 }
