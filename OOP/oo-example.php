@@ -1,9 +1,9 @@
 <?php 
 require "Item.php";
 
-$myObject = new Item();
-$myObject->name  = "Item name"; 
-$myObject->description; 
+$myObject = new Item("Product X123R", "A big product for your house.");
+echo $myObject->name ; 
+echo $myObject->description; 
 
 //Dynamic property 
 $myObject->price = 0.25; 
