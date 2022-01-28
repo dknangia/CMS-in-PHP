@@ -1,6 +1,17 @@
 <?php 
 require "Item.php";
+require "book.php";
 
-define('MIN_VALUE', '-40');
+$my_item = new Item(); 
+$my_item->name = "TV"; 
 
-echo Item::MAXIMUM; 
+echo $my_item->getListingDescription();
+
+echo "<br>";
+
+$my_item = null;
+$my_item = new Book(); 
+$my_item->name = "Hamilton"; 
+$my_item->author = "David brown";
+
+echo $my_item->getListingDescription();
