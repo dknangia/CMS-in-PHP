@@ -1,20 +1,21 @@
 <?php
-require "includes/database.php";
+require "classes/Database.php";
 require "includes/auth.php";
 
 session_start();
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnection();
 
 $sql = "SELECT * FROM article ORDER BY title";
 
-$results = mysqli_query($conn, $sql);
+$results = $conn->query($sql);
 
 if ($results === false) {
-    echo mysqli_error($conn);
+    var_dump($conn->errorInfo());
 } else {
 
-    $articles = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
