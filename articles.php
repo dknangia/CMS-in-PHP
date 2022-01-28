@@ -9,13 +9,11 @@ $conn = $db->getConnection();
 
 $sql = "SELECT * FROM article ORDER BY title";
 
-$results = $conn->query($sql);
-
-if ($results === false) {
-    var_dump($conn->errorInfo());
-} else {
-
+try {
+    $results = $conn->query($sql);
     $articles = $results->fetchAll(PDO::FETCH_ASSOC);
+} catch (\Throwable $th) {
+    //throw $th;
 }
 ?>
 
