@@ -1,8 +1,11 @@
 <?php
 
-require "includes/database.php";
+require "classes/Database.php";
 require "includes/article.php";
-$conn = getDB();
+
+
+$db = new Database();
+$conn = $db->getConnection();
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
@@ -14,7 +17,7 @@ require "includes/header.php";
 ?>
 
 
-<?php if ($article === null) : ?>
+<?php if (!$article) : ?>
     <p>No record is found</p>
 <?php else : ?>
     <ul>
@@ -30,7 +33,7 @@ require "includes/header.php";
 
 
     </ul>
-    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> | 
+    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> |
         <a href="<?= "./delete-article.php?id=$id" ?>">Delete</a>
     </p>
 <?php endif; ?>
