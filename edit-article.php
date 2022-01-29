@@ -1,14 +1,16 @@
 <?php
 
-require "includes/database.php";
+require "classes/Database.php";
 require "includes/article.php";
 require "includes/url.php";
+require "classes/Article.php";
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnection();
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
-    $article = getArticle($conn, $id);
+    $article = Article::getArticleById($conn, $id);
 
     $title = '';
     $content = '';
@@ -55,14 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             mysqli_stmt_bind_param($stmt, "sssi", $title, $content, $published_at, $id);
 
-            if (mysqli_stmt_execute($stmt)) {
-
-                $protocol = '';
-                if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
-                    $protocol = 'https';
-                } else {
-                    $protocol = 'http';
-                }
+            if (mysqli_stmt_execute($stmt)) {             
 
                 redirect("/article.php?id=$id");
                 exit;
