@@ -1,7 +1,7 @@
 <?php
 
 require "classes/Database.php";
-require "includes/article.php";
+require "classes/Article.php";
 
 
 $db = new Database();
@@ -9,7 +9,7 @@ $conn = $db->getConnection();
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
-    $article = getArticle($conn, $id);
+    $article = Article::getArticleById($conn, $id);
 } else {
     $article = null;
 }
@@ -27,11 +27,6 @@ require "includes/header.php";
                 <p><?php echo htmlspecialchars($article['content']); ?></p>
             </article>
         </li>
-
-
-
-
-
     </ul>
     <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> |
         <a href="<?= "./delete-article.php?id=$id" ?>">Delete</a>
