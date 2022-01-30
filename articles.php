@@ -1,20 +1,17 @@
 <?php
 require "classes/Database.php";
 require "includes/auth.php";
+require "classes/Article.php";
 
 session_start();
 
 $db = new Database();
 $conn = $db->getConnection();
 
-$sql = "SELECT * FROM article ORDER BY title";
 
-try {
-    $results = $conn->query($sql);
-    $articles = $results->fetchAll(PDO::FETCH_ASSOC);
-} catch (\Throwable $th) {
-    //throw $th;
-}
+
+$articles = Article::getAllArticles($conn);
+
 ?>
 
 <?php require "includes/header.php" ?>
