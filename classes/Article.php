@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Artile : Class regarding entiry called Articles, it contiains all the method and functions related to Articles. 
+ * 
+ */
 class Article
 {
+    public $id; 
+    public $title; 
+    public $content; 
+    public $published_at;
 
     public static function getAllArticles($conn)
     {
