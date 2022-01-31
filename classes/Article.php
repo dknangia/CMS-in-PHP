@@ -10,6 +10,7 @@ class Article
     public $title;
     public $content;
     public $published_at;
+    public $errors = [];
 
     public static function getAllArticles($conn)
     {
@@ -47,26 +48,66 @@ class Article
 
     public function updateArticleByID($conn)
     {
-        $sql = "UPDATE article 
+        if ($this->validate()) {
+            $sql = "UPDATE article 
                 SET title = :title, 
                     content = :content, 
                     published_at = :published_at
                 WHERE 
                     Id = :id";
-        $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare($sql);
 
-        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
-        $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
-        $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
+            $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
 
-        //Complex statement 
-        $stmt->bindValue(
-            ':published_at',
-            $this->published_at == '' ? null : $this->published_at,
-            $this->published_at == '' ? PDO::PARAM_NULL : PDO::PARAM_STR
-        );
+            //Complex statement 
+            $stmt->bindValue(
+                ':published_at',
+                $this->published_at == '' ? null : $this->published_at,
+                $this->published_at == '' ? PDO::PARAM_NULL : PDO::PARAM_STR
+            );
 
 
-        return $stmt->execute();
+            return $stmt->execute();
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    /**
+     * Validate the article properties
+     *      * 
+     * @return array of validation error messages
+     */
+    protected function validate()
+    {
+        if ($this->title === "") {
+            $this->errors[] = "Title is required";
+        }
+
+        if ($this->content === "") {
+            $this->errors[] = "Content is required";
+        }
+
+        if ($this->published_at != '') {
+            $dateTime =  date_create_from_format('Y-m-d H:i:s', $this->published_at);
+            if ($dateTime  === false) {
+                $this->errors[] = "Provided datetime is not valid";
+            } else {
+
+                $date_errors = date_get_last_errors();
+
+                if ($date_errors['warning_count'] > 0) {
+                    $this->errors[] = "Not able to convert data";
+                } else {
+                    $published_at = date_format($dateTime, "Y-m-d H:i:s");
+                }
+            }
+        }
+
+        return empty($this->errors);
     }
 }

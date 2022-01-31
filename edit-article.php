@@ -1,7 +1,6 @@
 <?php
 
 require "classes/Database.php";
-require "includes/article.php";
 require "includes/url.php";
 require "classes/Article.php";
 
@@ -26,12 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $article->content = htmlspecialchars($_POST['content']);
     $article->published_at = $_POST['published_at'];
 
-    $errors = validateArticle($article->title, $article->content, $article->published_at);
-
-    if (empty($errors)) {
-        if ($article->updateArticleByID($conn)) {
-            redirect("/article.php?id=$article->id");         
-        }
+    if ($article->updateArticleByID($conn)) {
+        redirect("/article.php?id=$article->id");
     }
 }
 
