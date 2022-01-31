@@ -24,7 +24,7 @@ class Article
  * @param Object $conn Connection to the database
  * @param Object $id ID of the article to find
  * 
- * @return mixed An associative array containing the article with that ID or null if not found. 
+ * @return mixed An object of this class.
  * 
  */
 
@@ -37,8 +37,10 @@ public static function getArticleById($conn, $id, $columns = "*")
 
     $stmt->bindValue(':id', $id,  PDO::PARAM_INT);
 
+    $stmt->setFetchMode(PDO::FETCH_CLASS, 'Article');
+
     if ($stmt->execute()) {
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch();
     }
 }
 
