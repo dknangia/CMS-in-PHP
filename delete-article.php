@@ -1,21 +1,26 @@
 <?php
 
 require "includes/database.php";
+require  "classes/Database.php";
+require "classes/Article.php";
 require "includes/article.php";
 require "includes/url.php";
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $conn = getDB();
+
+$article = null;
+
+if (isset($_GET['id'])) {
+
+    $id = htmlspecialchars($_GET['id']);
+    $db = new Database();
+    $conn = $db->getConnection();
 
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         $id = $_GET['id'];
-        $article = getArticle($conn, $id, "id");
+        $article = Article::getArticleById($conn, $id, "id");
 
-        $id = -1;
 
-        if ($article !== null) {
+        if (!$article) {
 
-            $id = $article['id'];
-        } else {
             die("No article found with this id");
         }
     } else {
@@ -25,25 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
 
-    $id = htmlspecialchars($_GET['id']);
 
-    if (empty($errors)) {
-        $conn = getDB();
-        $sql = "DELETE FROM article
-                WHERE id = ?";
-
-        $stmt = mysqli_prepare($conn, $sql);
-
-        if ($stmt === false) {
-            echo mysqli_error($conn);
-        } else {
-
-            mysqli_stmt_bind_param($stmt, "i", $id);
-            if (mysqli_stmt_execute($stmt)) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if (empty($errors)) {
+            if ($article->deteleArticleById($conn)) {
                 redirect("/articles.php");
-                exit;
-            } else {
-                echo mysqli_stmt_error($stmt);
             }
         }
     }
@@ -56,9 +47,7 @@ require "includes/header.php";
 <form method="POST">
 
     <p>Are you sure want to delete?</p>
-    <button>Delete</button> | <a href="/article.php?id=<?php if (isset($_GET['id'])) {
-                                                            echo $_GET['id'];
-                                                        }; ?>">Cancel</a>
+    <button>Delete</button> | <a href="/article.php?id=<?= $article->id; ?>">Cancel</a>
 
 </form>
 <?php require "includes/footer.php" ?>
