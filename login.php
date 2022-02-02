@@ -1,10 +1,17 @@
 <?php
 session_start();
+
 require "includes/url.php";
-require "classes/user.php";
+require "classes/User.php";
+require "classes/Database.php";
+
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    if (USER::authenticate($_POST['username'], $_POST['password'])) {
+    $db = new Database();
+    $conn = $db->getConnection();
+
+    if (USER::authenticate($conn, $_POST['username'], $_POST['password'])) {
         session_regenerate_id(true);
         $_SESSION['is_logged_in'] = true;
         redirect("/articles.php");
