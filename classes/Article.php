@@ -70,10 +70,29 @@ class Article
 
 
             return $stmt->execute();
-        }
-        else {
+        } else {
             return false;
         }
+    }
+
+
+    /**
+     * Delete article based on id; 
+     * 
+     * @return bool 
+     */
+    public function deteleArticleById($conn)
+    {
+      
+            $sql = "DELETE FROM article 
+                    WHERE 
+                    Id = :id";
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bindValue(":id", $this->id, PDO::PARAM_INT);
+
+            return ($stmt->execute());
+       
     }
 
 
