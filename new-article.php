@@ -1,6 +1,8 @@
 <?php
 
 require "includes/database.php";
+require "classes/Database.php";
+require "classes/Article.php";
 require "includes/article.php";
 require "includes/url.php";
 require "includes/auth.php";
@@ -12,55 +14,32 @@ if (!isloggedIn()) {
     die("Unauthorized");
 }
 
-// Form variables 
-$title = '';
-$content = '';
-$published_at = '';
-
-
+$article = new Article();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-    $title = htmlspecialchars($_POST['title']);
-    $content = htmlspecialchars($_POST['content']);
-    $published_at = $_POST['published_at'];
 
-    $errors = validateArticle($title, $content, $published_at);
+    $db = new Database();
+    $conn = $db->getConnection();
 
-    if (empty($errors)) {
-        $conn = getDB();
-        $sql = "INSERT INTO article (title, content, published_at)
-            VALUES (?, ?, ?)";
 
-        $stmt = mysqli_prepare($conn, $sql);
 
-        if ($stmt === false) {
-            echo mysqli_error($conn);
-        } else {
+    $article->title = htmlspecialchars($_POST['title']);
+    $article->content = htmlspecialchars($_POST['content']);
+    $article->published_at = $_POST['published_at'];
 
-            if (empty($published_at)) {
-                $published_at = null;
-            }
 
-            mysqli_stmt_bind_param($stmt, "sss", $title, $content, $published_at);
+    if ($article->insertNewArticle($conn)) {
 
-            if (mysqli_stmt_execute($stmt)) {
-                $id = mysqli_insert_id($conn);
-                echo "Inserted record with ID : $id";
-
-                redirect("/article.php?id=$id");
-            } else {
-                echo mysqli_stmt_error($stmt);
-            }
-        }
+        redirect("/article.php?id=$article->id");
     }
 }
-require "includes/header.php";
 ?>
+<?php require "includes/header.php"; ?>
 
 
 <h1>New article</h1>
 
 <?php require "includes/article-form.php" ?>
 
-<?php require "includes/footer.php" ?>
+<?php require "includes/footer.php"; ?>
