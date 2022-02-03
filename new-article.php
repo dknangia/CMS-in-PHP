@@ -5,11 +5,12 @@ require "classes/Database.php";
 require "classes/Article.php";
 require "includes/article.php";
 require "includes/url.php";
-require "includes/auth.php";
+require "classes/Auth.php";
+
 
 session_start();
 
-if (!isloggedIn()) {
+if (!Auth::isloggedIn()) {
 
     die("Unauthorized");
 }
