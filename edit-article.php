@@ -1,10 +1,6 @@
 <?php
 
-require "classes/Database.php";
-require "includes/url.php";
-require "classes/Article.php";
-require "classes/Auth.php"; 
-require "classes/URL.php";
+require "includes/init.php";
 
 $db = new Database();
 $conn = $db->getConnection();

@@ -1,11 +1,6 @@
 <?php
 
-require "includes/database.php";
-require  "classes/Database.php";
-require "classes/Article.php";
-require "includes/article.php";
-require "includes/url.php";
-require "classes/URL.php";
+require "includes/init.php";
 
 $article = null;
 

@@ -1,14 +1,9 @@
 <?php
 
-require "includes/database.php";
-require "classes/Database.php";
-require "classes/Article.php";
-require "includes/article.php";
-require "classes/URL.php";
-require "classes/Auth.php";
+require "includes/init.php";
 
 
-session_start();
+
 
 if (!Auth::isloggedIn()) {
 

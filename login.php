@@ -1,9 +1,7 @@
 <?php
-session_start();
 
-require "classes/URL.php";
-require "classes/User.php";
-require "classes/Database.php";
+
+require "includes/init.php";
 
 
 
