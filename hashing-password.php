@@ -1,6 +1,6 @@
 <?php 
 
-$password = 'secret1'; 
+$password = 'secret'; 
 
 // $hash = password_hash($password, PASSWORD_DEFAULT); 
 

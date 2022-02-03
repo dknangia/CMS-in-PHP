@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-require "includes/url.php";
+require "classes/URL.php";
 require "classes/User.php";
 require "classes/Database.php";
+
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -14,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (USER::authenticate($conn, $_POST['username'], $_POST['password'])) {
         session_regenerate_id(true);
         $_SESSION['is_logged_in'] = true;
-        redirect("/articles.php");
+        Url::redirect("/articles.php");
         exit;
     } else {
 
