@@ -3,6 +3,8 @@
 require "classes/Database.php";
 require "includes/url.php";
 require "classes/Article.php";
+require "classes/Auth.php"; 
+require "classes/URL.php";
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -26,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $article->published_at = $_POST['published_at'];
 
     if ($article->updateArticleByID($conn)) {
-        redirect("/article.php?id=$article->id");
+        Url::redirect("/article.php?id=$article->id");
     }
 }
 

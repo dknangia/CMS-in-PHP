@@ -5,6 +5,7 @@ require  "classes/Database.php";
 require "classes/Article.php";
 require "includes/article.php";
 require "includes/url.php";
+require "classes/URL.php";
 
 $article = null;
 
@@ -34,7 +35,7 @@ if (isset($_GET['id'])) {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (empty($errors)) {
             if ($article->deteleArticleById($conn)) {
-                redirect("/articles.php");
+                Url::redirect("/articles.php");
             }
         }
     }
