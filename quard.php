@@ -4,8 +4,12 @@ $targetSum = 16;
 
 
 /**
- * Get quardruple for the sum 
+ * Get quardruple for the sum.  
  *  
+ * @param array $args Array on which computation needs to be done e.g. [7, 6, 1, 2, 3, 4, -1]
+ * @param  integer $targetSum Sum required for the computaiton e.g. 16
+ * 
+ * @return array Array of quardruple  
  */
 function getQuardRupple($args, $targetSum)
 {

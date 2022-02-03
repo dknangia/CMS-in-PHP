@@ -4,7 +4,7 @@ require "includes/database.php";
 require "classes/Database.php";
 require "classes/Article.php";
 require "includes/article.php";
-require "includes/url.php";
+require "classes/URL.php";
 require "classes/Auth.php";
 
 
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if ($article->insertNewArticle($conn)) {
 
-        redirect("/article.php?id=$article->id");
+        URl::redirect("/article.php?id=$article->id");
     }
 }
 ?>
