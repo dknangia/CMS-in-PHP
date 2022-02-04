@@ -15,10 +15,7 @@ $article = new Article();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 
-    $db = new Database();
-    $conn = $db->getConnection();
-
-
+    $conn = require "includes/db.php";
 
     $article->title = htmlspecialchars($_POST['title']);
     $article->content = htmlspecialchars($_POST['content']);
