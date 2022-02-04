@@ -1,9 +1,7 @@
 <?php
 
 require "includes/init.php";
-
-$db = new Database();
-$conn = $db->getConnection();
+$conn = require "includes/db.php";
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];

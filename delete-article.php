@@ -1,14 +1,14 @@
 <?php
 
 require "includes/init.php";
+$conn = require "includes/db.php";
 
 $article = null;
 
 if (isset($_GET['id'])) {
 
     $id = htmlspecialchars($_GET['id']);
-    $db = new Database();
-    $conn = $db->getConnection();
+
 
     if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         $id = $_GET['id'];
