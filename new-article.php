@@ -4,6 +4,7 @@ require "includes/init.php";
 
 
 
+Auth::requireLogin();
 
 if (!Auth::isloggedIn()) {
 

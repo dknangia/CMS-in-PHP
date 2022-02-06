@@ -3,6 +3,8 @@
 require "includes/init.php";
 $conn = require "includes/db.php";
 
+Auth::requireLogin();
+
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
     $article = Article::getArticleById($conn, $id);
