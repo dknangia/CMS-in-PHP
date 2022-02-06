@@ -3,6 +3,7 @@
 class Item
 {
    public $name;
+   protected $code = 12345;
 
    public function getListingDescription()
    {
