@@ -3,7 +3,7 @@
 require "../includes/init.php";
 $conn = require "../includes/db.php";
 
-
+Auth::requireLogin();
 
 $articles = Article::getAllArticles($conn);
 
@@ -23,16 +23,22 @@ if (Auth::isloggedIn()) : ?>
 <?php if (empty($articles)) : ?>
     <p>No records found</p>
 <?php else : ?>
-    <ul>
-        <?php foreach ($articles as $article) : ?>
-            <li>
-                <article>
-                    <h2><?php echo "<a href=\"\article.php?id={$article['id']}\">"
-                            . htmlspecialchars($article['title']) . "</a>"; ?></h2>
-                    <p><?php echo htmlspecialchars($article['content']); ?></p>
-                </article>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <h2>Administration</h2>
+    <table>
+        <thead>
+            <th>Titile</th>
+        </thead>
+        <tbody>
+            <?php foreach ($articles as $article) : ?>
+
+                <tr>
+                    <td>
+                        <h4><?php echo "<a href=\"\article.php?id={$article['id']}\">"
+                                . htmlspecialchars($article['title']) . "</a>"; ?></h4>
+                    </td>
+                </tr>              
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 <?php endif; ?>
 <?php require "../includes/footer.php" ?>
