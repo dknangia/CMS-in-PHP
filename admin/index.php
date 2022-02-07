@@ -3,7 +3,7 @@
 require "../includes/init.php";
 $conn = require "../includes/db.php";
 
-Auth::requireLogin();
+//Auth::requireLogin();
 
 $articles = Article::getAllArticles($conn);
 
@@ -11,14 +11,12 @@ $articles = Article::getAllArticles($conn);
 
 <?php require "../includes/header.php" ?>
 
-<?php
-if (Auth::isloggedIn()) : ?>
 
-    <p>You are logged in, <a href="/logout.php">Logout</a></p>
-    <p><a href="/new-article.php">New Article</a></p>
-<?php else : ?>
-    <p>You are NOT logged in, <a href="/login.php">Login</a></p>
-<?php endif; ?>
+
+
+<h2>Administratoin</h2>
+<p><a href="/new-article.php">New Article</a></p>
+
 
 <?php if (empty($articles)) : ?>
     <p>No records found</p>
@@ -36,7 +34,7 @@ if (Auth::isloggedIn()) : ?>
                         <h4><?php echo "<a href=\"\article.php?id={$article['id']}\">"
                                 . htmlspecialchars($article['title']) . "</a>"; ?></h4>
                     </td>
-                </tr>              
+                </tr>
             <?php endforeach; ?>
         </tbody>
     </table>

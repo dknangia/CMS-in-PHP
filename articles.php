@@ -11,14 +11,7 @@ $articles = Article::getAllArticles($conn);
 
 <?php require "includes/header.php" ?>
 
-<?php
-if (Auth::isloggedIn()) : ?>
 
-    <p>You are logged in, <a href="/logout.php">Logout</a></p>
-    <p><a href="/new-article.php">New Article</a></p>
-<?php else : ?>
-    <p>You are NOT logged in, <a href="/login.php">Login</a></p>
-<?php endif; ?>
 
 <?php if (empty($articles)) : ?>
     <p>No records found</p>
