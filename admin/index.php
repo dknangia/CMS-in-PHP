@@ -31,7 +31,7 @@ $articles = Article::getAllArticles($conn);
 
                 <tr>
                     <td>
-                        <h4><?php echo "<a href=\"\article.php?id={$article['id']}\">"
+                        <h4><?php echo "<a href=\"article.php?id={$article['id']}\">"
                                 . htmlspecialchars($article['title']) . "</a>"; ?></h4>
                     </td>
                 </tr>
