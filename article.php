@@ -24,9 +24,6 @@ require "includes/header.php";
                 <p><?php echo htmlspecialchars($article->content); ?></p>
             </article>
         </li>
-    </ul>
-    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> |
-        <a href="<?= "./delete-article.php?id=$id" ?>">Delete</a>
-    </p>
+    </ul>  
 <?php endif; ?>
 <?php require "includes/footer.php" ?>
