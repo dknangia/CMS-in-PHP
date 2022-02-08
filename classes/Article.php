@@ -25,7 +25,7 @@ class Article
     {
         $sql = "SELECT * 
                 FROM article 
-                ORDER BY title 
+                ORDER BY ID 
                 LIMIT :limit
                 OFFSET :offset";
 

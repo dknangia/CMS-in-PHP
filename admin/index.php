@@ -5,8 +5,10 @@ Auth::requireLogin();
 $conn = require "../includes/db.php";
 
 
+$paginator = new Paginator(isset($_GET['page'])
+    && is_numeric($_GET['page']) ? $_GET['page'] : 1, 4);
 
-$articles = Article::getPage($conn, 2, 2);
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
 ?>
 
