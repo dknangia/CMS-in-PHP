@@ -37,9 +37,7 @@ class Article
         //$stmt->setFetchMode(PDO::FETCH_CLASS, 'Article');
 
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
-
-       
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     /**
      * 
@@ -185,5 +183,15 @@ class Article
         }
 
         return empty($this->errors);
+    }
+
+    /**
+     * Get total number of records in article table
+     * 
+     * @return int Count of the records in table
+     */
+    public static function getTotal($conn)
+    {
+        return $conn->query("SELECT COUNT(1) FROM Article")->fetchColumn();
     }
 }
