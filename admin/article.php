@@ -25,8 +25,14 @@ require "../includes/header.php";
             </article>
         </li>
     </ul>
-    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> |
+    <p> <a href="<?= "./edit-article.php?id=$id" ?>">Edit</a> 
+
+    </p>
+    <p>
         <a href="<?= "./delete-article.php?id=$id" ?>">Delete</a>
+    </p>
+    <p>
+        <a href="<?= "./edit-article-image.php?id=$article->id" ?>">Edit Image</a>
     </p>
 <?php endif; ?>
 <?php require "../includes/footer.php" ?>
