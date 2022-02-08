@@ -1,11 +1,12 @@
 <?php
 
 require "../includes/init.php";
+Auth::requireLogin();
 $conn = require "../includes/db.php";
 
-//Auth::requireLogin();
 
-$articles = Article::getAllArticles($conn);
+
+$articles = Article::getPage($conn, 2, 2);
 
 ?>
 
@@ -15,7 +16,7 @@ $articles = Article::getAllArticles($conn);
 
 
 <h2>Administratoin</h2>
-<p><a href="/new-article.php">New Article</a></p>
+<p><a href="/admin/new-article.php">New Article</a></p>
 
 
 <?php if (empty($articles)) : ?>

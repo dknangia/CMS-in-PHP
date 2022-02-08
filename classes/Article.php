@@ -20,6 +20,27 @@ class Article
         return $results->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    public static function getPage($conn, $limit, $offset)
+    {
+        $sql = "SELECT * 
+                FROM article 
+                ORDER BY title 
+                LIMIT :limit
+                OFFSET :offset";
+
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        //$stmt->setFetchMode(PDO::FETCH_CLASS, 'Article');
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+
+       
+    }
     /**
      * 
      * @param Object $conn Connection to the database
