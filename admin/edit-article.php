@@ -35,6 +35,6 @@ require "../includes/header.php";
 
 <h1>New article</h1>
 
-<?php require "../includes/article-form.php" ?>
+<?php require "includes/article-form.php" ?>
 
 <?php require "../includes/footer.php" ?>
