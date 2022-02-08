@@ -4,7 +4,7 @@ require "../includes/init.php";
 Auth::requireLogin();
 $conn = require "../includes/db.php";
 
-$total = Article::getTotal($conn); 
+$total = Article::getTotal($conn);
 $paginator = new Paginator($_GET['page'] ?? 1, 4, $total);
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
@@ -41,24 +41,7 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
         </tbody>
     </table>
 
-    <nav>
-        <ul>
-            <li>
-                <?php if ($paginator->previous) : ?>
-                    <a href="?page=<?= $paginator->previous; ?>">Previous</a>
-                <?php else : ?>
-                    Previous
-                <?php endif; ?>
-            </li>
-            <li>
-                <?php if ($paginator->next) : ?>
-                    <a href="?page=<?= $paginator->next; ?>">Next</a>
-                <?php else : ?>
-                    Next
-                <?php endif; ?>
-            </li>
-        </ul>
-    </nav>
+    <?php require "../includes/pagination.php" ?>
 
 <?php endif; ?>
 <?php require "../includes/footer.php" ?>

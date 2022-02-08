@@ -5,7 +5,12 @@ $conn = require "includes/db.php";
 
 
 
-$articles = Article::getAllArticles($conn);
+$conn = require "includes/db.php";
+
+$total = Article::getTotal($conn); 
+$paginator = new Paginator($_GET['page'] ?? 1, 2, $total);
+
+$articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
 ?>
 
@@ -16,16 +21,23 @@ $articles = Article::getAllArticles($conn);
 <?php if (empty($articles)) : ?>
     <p>No records found</p>
 <?php else : ?>
-    <ul>
-        <?php foreach ($articles as $article) : ?>
-            <li>
-                <article>
-                    <h2><?php echo "<a href=\"\article.php?id={$article['id']}\">"
-                            . htmlspecialchars($article['title']) . "</a>"; ?></h2>
-                    <p><?php echo htmlspecialchars($article['content']); ?></p>
-                </article>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <table>
+        <thead>
+            <th>Titile</th>
+        </thead>
+        <tbody>
+            <?php foreach ($articles as $article) : ?>
+
+                <tr>
+                    <td>
+                        <h4><?php echo "<a href=\"article.php?id={$article['id']}\">"
+                                . htmlspecialchars($article['title']) . "</a>"; ?></h4>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php require "includes/pagination.php" ?>
 <?php endif; ?>
 <?php require "includes/footer.php" ?>
