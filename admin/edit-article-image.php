@@ -42,6 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($_FILES['file']['size'] > 1000 * 1000) {
             throw new Exception("File is too large");
         }
+
+        $mime_type = ['image/gif', 'image/png', 'image/jpeg'];
+
+        if (!in_array($_FILES['file']['type'], $mime_type)) {
+            throw new Exception(("Invalid file type"));
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
