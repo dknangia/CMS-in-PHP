@@ -38,6 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 throw new Exception("An error occured");
                 break;
         }
+
+        if ($_FILES['file']['size'] > 1000 * 1000) {
+            throw new Exception("File is too large");
+        }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
