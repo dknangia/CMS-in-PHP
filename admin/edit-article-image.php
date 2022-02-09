@@ -26,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             case UPLOAD_ERR_OK:
 
                 break;
+
+            case UPLOAD_ERR_INI_SIZE:
+                throw new Exception("Invalid file size");
+                break;
             case UPLOAD_ERR_NO_FILE:
                 throw new Exception("No file uploaded");
                 break;
