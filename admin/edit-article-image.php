@@ -42,10 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($_FILES['file']['size'] > 1000 * 1000) {
             throw new Exception("File is too large");
         }
+        //More better way to check the mime type of uploaded file. 
+        $mime_types = ['image/gif', 'image/png', 'image/jpeg'];
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
 
-        $mime_type = ['image/gif', 'image/png', 'image/jpeg'];
-
-        if (!in_array($_FILES['file']['type'], $mime_type)) {
+        if (!in_array($mime_type, $mime_types)) {
             throw new Exception(("Invalid file type"));
         }
     } catch (Exception $e) {
