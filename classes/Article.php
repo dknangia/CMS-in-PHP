@@ -10,6 +10,7 @@ class Article
     public $title;
     public $content;
     public $published_at;
+    public $image_file;
     public $errors = [];
 
     public static function getAllArticles($conn)
