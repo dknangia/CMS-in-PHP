@@ -194,4 +194,28 @@ class Article
     {
         return $conn->query("SELECT COUNT(1) FROM Article")->fetchColumn();
     }
+
+
+    /** 
+     * Function to bind image file with the article
+     * 
+     * @param object $conn mysql connection
+     * @param string $filename Image filename  
+     * 
+     * @return boolean 
+     */
+    public function setImageFile($conn,  $filename)
+    {
+      
+            $sql = "UPDATE article 
+                    SET image_file = :filename                 
+                    WHERE Id = :id";
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindValue(':filename', $filename, PDO::PARAM_STR);
+
+            return $stmt->execute();
+      
+    }
 }
