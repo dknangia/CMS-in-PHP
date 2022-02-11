@@ -207,16 +207,15 @@ class Article
      */
     public function setImageFile($conn,  $filename)
     {
-      
-            $sql = "UPDATE article 
+
+        $sql = "UPDATE article 
                     SET image_file = :filename                 
                     WHERE Id = :id";
-            $stmt = $conn->prepare($sql);
+        $stmt = $conn->prepare($sql);
 
-            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
-            $stmt->bindValue(':filename', $filename, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $stmt->bindValue(':filename', $filename, $filename == null ? PDO::PARAM_NULL : PDO::PARAM_STR);
 
-            return $stmt->execute();
-      
+        return $stmt->execute();
     }
 }

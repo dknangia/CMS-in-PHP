@@ -96,6 +96,11 @@ require "../includes/header.php";
 <h1>Edit article Image</h1>
 <?php if ($article->image_file) : ?>
     <img src="/uploads/<?= $article->image_file ?>" />
+
+    <p>
+        <a href="delete-article-image.php?id=<?= $article->id ?>">Delete</a>
+    </p>
+
 <?php endif; ?>
 <form method="post" enctype="multipart/form-data">
     <p>
