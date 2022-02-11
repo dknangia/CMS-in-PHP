@@ -88,7 +88,9 @@ require "../includes/header.php";
 
 
 <h1>Edit article Image</h1>
-
+<?php if ($article->image_file) : ?>
+    <img src="/uploads/<?= $article->image_file ?>" />
+<?php endif; ?>
 <form method="post" enctype="multipart/form-data">
     <p>
         <label for="file">Image file</label>
