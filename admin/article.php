@@ -21,6 +21,9 @@ require "../includes/header.php";
         <li>
             <article>
                 <h2><?php echo htmlspecialchars($article->title); ?></h2>
+                <?php if ($article->image_file) : ?>
+                    <img src="/uploads/<?= $article->image_file ?>" />
+                <?php endif; ?>
                 <p><?php echo htmlspecialchars($article->content); ?></p>
             </article>
         </li>
