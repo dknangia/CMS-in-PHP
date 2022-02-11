@@ -53,15 +53,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $pathinfo = pathinfo($_FILES['file']['name']);
 
+
         $base = $pathinfo['filename'];
+        $base = mb_substr($base, 0, 200);
 
         $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
 
         $filename = $base . "." . $pathinfo['extension'];
 
         $destination = "../uploads/" . $filename;
+        $iCounter = 1;
+        while (file_exists($destination)) {
+            $destination =  "../uploads/" . $base .  "-" . $iCounter . "." . $pathinfo['extension'];
+            $iCounter++;
+        }
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
+
+            if ($article->setImageFile($conn, $filename)) {
+                URL::redirect("/admin/article.php?id={$article->id}");
+            }
+
             echo "file uploaded successfully";
         } else {
             throw new Exception("Unable to move uploaded file");
