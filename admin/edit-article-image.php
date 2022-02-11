@@ -70,13 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
 
-            $previous_image = $article->image_file;
-            var_dump($previous_image);
-
             if ($article->setImageFile($conn, $filename)) {
-                if ($previous_image) {
-                    unlink("../uploads/{$previous_image}");
-                }
                 URL::redirect("/admin/article.php?id={$article->id}");
             }
 
