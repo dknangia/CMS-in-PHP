@@ -6,10 +6,11 @@ $conn = require "includes/db.php";
 
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
-    $article = Article::getArticleById($conn, $id);
+    $article = Article::getWithCategories($conn, $id);
 } else {
     $article = null;
 }
+
 require "includes/header.php";
 ?>
 
@@ -20,11 +21,18 @@ require "includes/header.php";
     <ul>
         <li>
             <article>
-                <h2><?php echo htmlspecialchars($article->title); ?></h2>
-                <?php if ($article->image_file) : ?>
-                    <img src="/uploads/<?= $article->image_file ?>" />
+                <h2><?php echo htmlspecialchars($article[0]['title']); ?></h2>
+                <?php if ($article[0]['category_name'] != null) : ?>
+                    <p>Categories:
+                        <?php foreach ($article as $value) : ?>
+                            <?= $value['category_name'] ?>
+                        <?php endforeach; ?>
+                    </p>
                 <?php endif; ?>
-                <p><?php echo htmlspecialchars($article->content); ?></p>
+                <?php if ($article[0]['image_file']) : ?>
+                    <img src="/uploads/<?= $article[0]['image_file'] ?>" />
+                <?php endif; ?>
+                <p><?php echo htmlspecialchars($article[0]['content']); ?></p>
             </article>
         </li>
     </ul>
