@@ -9,7 +9,7 @@ Auth::requireLogin();
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
     $article = Article::getArticleById($conn, $id);
-
+  
     if (!$article) {
         die("No article found with this id");
     }

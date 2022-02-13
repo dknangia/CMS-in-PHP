@@ -13,6 +13,7 @@ class Article
     public $image_file;
     public $errors = [];
 
+
     public static function getAllArticles($conn)
     {
         $sql = "SELECT * FROM article ORDER BY title";
@@ -88,6 +89,42 @@ class Article
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    public function getCategories($conn)
+    {
+        $sql = "SELECT category.*
+                FROM category
+                JOIN article_category
+                ON category.id = article_category.category_id
+                WHERE article_id = :id";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchall(PDO::FETCH_ASSOC);
+    }
+
+    /***
+     * 
+     * 
+     */
+    public function setCategories($conn, $ids)
+    {
+        if ($ids) {
+            $sql = "INSERT IGNORE INTO article_category (article_id, category_id)
+                    VALUES ({$this->id}, :category_id)";
+            $stmt = $conn->prepare($sql);
+            foreach ($ids as $id) {
+                $stmt->bindValue(":category_id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+        }
+    }
+
+    /**
+     * 
+     */
     public function updateArticleByID($conn)
     {
         if ($this->validate()) {
