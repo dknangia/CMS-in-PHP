@@ -9,6 +9,10 @@ Auth::requireLogin();
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $id = $_GET['id'];
     $article = Article::getArticleById($conn, $id);
+    $categories = Category::getAll($conn);
+
+    $category_id = array_column($article->getCategories($conn), 'id');
+    var_dump($category_id);
 
     if (!$article) {
         die("No article found with this id");
