@@ -13,6 +13,7 @@ class Article
     public $image_file;
     public $errors = [];
 
+
     public static function getAllArticles($conn)
     {
         $sql = "SELECT * FROM article ORDER BY title";
@@ -52,7 +53,9 @@ class Article
     public static function getArticleById($conn, $id, $columns = "*")
     {
 
-        $sql = "SELECT $columns FROM article WHERE id = :id";
+        $sql = "SELECT $columns 
+                FROM article                 
+                WHERE id = :id";
 
         $stmt = $conn->prepare($sql);
 
@@ -65,7 +68,46 @@ class Article
         }
     }
 
+    /**
+     * Fetch 
+     * 
+     */
+    public static function getWithCategories($conn, $id)
+    {
+        $sql = "SELECT *, c.name as category_name
+                FROM article a
+                LEFT JOIN article_category ac
+                    ON a.id = ac.article_id
+                LEFT JOIN category c
+                    ON c.id = ac.category_id
+                WHERE a.id = :id";
 
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getCategories($conn)
+    {
+        $sql = "SELECT category.*
+                FROM category
+                JOIN article_category
+                ON category.id = article_category.category_id
+                WHERE article_id = :id";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchall(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * 
+     */
     public function updateArticleByID($conn)
     {
         if ($this->validate()) {
