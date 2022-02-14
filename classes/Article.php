@@ -105,8 +105,13 @@ class Article
         return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
 
-    /***
+    /**
+     * Update the categories of the article
      * 
+     * @param object $conn MySQL connection 
+     * @param array $ids  Arrays of article categories id. 
+     * 
+     * @return null
      * 
      */
     public function setCategories($conn, $ids)
@@ -123,7 +128,9 @@ class Article
     }
 
     /**
+     * Update article by ID, the ID will be taken from the object
      * 
+     * @param object $conn Connection string.
      */
     public function updateArticleByID($conn)
     {
