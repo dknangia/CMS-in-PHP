@@ -107,7 +107,7 @@ class Article
 
     /**
      * Update the categories of the article
-     * 
+     * Inserting mutiple records in one query
      * @param object $conn MySQL connection 
      * @param array $ids  Arrays of article categories id. 
      * 
@@ -116,14 +116,25 @@ class Article
      */
     public function setCategories($conn, $ids)
     {
+        // Used INGORE keyword to ignore any error message while trying to push multiple records
         if ($ids) {
             $sql = "INSERT IGNORE INTO article_category (article_id, category_id)
-                    VALUES ({$this->id}, :category_id)";
-            $stmt = $conn->prepare($sql);
+                    VALUES ";
+
+
+            $values = [];
             foreach ($ids as $id) {
-                $stmt->bindValue(":category_id", $id, PDO::PARAM_INT);
-                $stmt->execute();
+                $values[] = "({$this->id}, ?)";
             }
+
+            // Join the array element by ", "
+            $sql .= implode(", ", $values);
+
+            $stmt = $conn->prepare($sql);
+            foreach ($ids as $i => $id) {
+                $stmt->bindValue($i + 1, $id, PDO::PARAM_INT);
+            }
+            $stmt->execute();
         }
     }
 
