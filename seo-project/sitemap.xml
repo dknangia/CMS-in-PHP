@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<!--As I d-->
+	<url>
+		<loc>http://kuberthewebdeveloper.com/</loc>
+		<lastmod>2022-02-09T07:56:12+03:00</lastmod>
+	</url>
+	<url>
+		<loc>http://kuberthewebdeveloper.com/aboutme.html</loc>
+		<lastmod>2022-02-09T07:56:12+03:00</lastmod>
+	</url>
+	<url>
+		<loc>http://kuberthewebdeveloper.com/portfolio.html</loc>
+		<lastmod>2022-02-09T07:56:12+03:00</lastmod>
+	</url>
+	<url>
+		<loc>http://kuberthewebdeveloper.com/posters.html</loc>
+		<lastmod>2022-02-09T07:56:12+03:00</lastmod>
+	</url>
+	<url>
+		<loc>http://kuberthewebdeveloper.com/landingpages.html</loc>
+		<lastmod>2022-02-09T07:56:12+03:00</lastmod>
+	</url>
+	<url>
+		<loc>http://kuberthewebdeveloper.com/blog.html</loc>
+		<lastmod>2022-02-09T07:56:12+03:00</lastmod>
+	</url>	
+</urlset>
